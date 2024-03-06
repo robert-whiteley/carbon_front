@@ -23,8 +23,7 @@ pyenv activate carbon_front_streamlit
 
 3. Install the required dependencies:
 ```bash
-pyenv virtualenv carbon_front_streamlit
-pyenv activate carbon_front_streamlit
+pip install -r requirements.txt
 ```
 
 ## Run the project
