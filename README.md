@@ -11,7 +11,7 @@ Before getting started, make sure you have Python and pyenv installed on your sy
 1. Clone the repository to your local machine:
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/robert-whiteley/carbon_front.git
 cd carbon-frontend
 ```
 
