@@ -8,13 +8,14 @@ SERVER_BASE_URL = 'http://localhost:8000'
 
 def upload_image(file_path):
     #The post endpoint
-    url = SERVER_BASE_URL + "/upload"
+    url = SERVER_BASE_URL + "/predict"
     #Writing in the files -> image the file in binary
     files = {'image': open(file_path, 'rb')}
     try:
         response = requests.post(url, files=files)
         if response.status_code == 200:
             st.success("Image uploaded successfully")
+            response.content
         else:
             st.error("Failed to upload image")
     except Exception as e:
