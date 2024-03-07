@@ -4,7 +4,7 @@ import streamlit as st
 import os
 
 #Server URL
-SERVER_BASE_URL = 'http://localhost:8000'
+SERVER_BASE_URL = 'https://carbon-calculator-rw-klerphlnqq-ew.a.run.app'
 
 def upload_image(file_path):
     #The post endpoint
