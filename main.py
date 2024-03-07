@@ -41,15 +41,7 @@ def upload_image(file_path):
     try:
         response = requests.post(url, files=files)
         if response.status_code == 200:
-<<<<<<< HEAD
             return json.loads(response.content.decode('utf-8'))
-=======
-            st.success("Image uploaded successfully")
-            content_json = json.loads(response.content.decode('utf-8'))
-            cropped_image = display_cropped_img(content_json)
-            st.image(cropped_image, width=250)
-            content_json['message']
->>>>>>> 886a475c4f33adefdda667233da8711fadffe0d0
         else:
             st.error("No fruit detected")
     except Exception as e:
