@@ -21,7 +21,7 @@ def upload_image(file_path):
             st.success("Image uploaded successfully")
             content_json = json.loads(response.content.decode('utf-8'))
             cropped_image = display_cropped_img(content_json)
-            st.image(cropped_image)
+            st.image(cropped_image, width=250)
             content_json['message']
         else:
             st.error("Failed to upload image")
@@ -29,7 +29,7 @@ def upload_image(file_path):
         st.error(f"Error: {str(e)}")
 
 def display_cropped_img(content):
-    new_image = Image.fromarray(np.array(json.loads(content['cropped']), dtype='uint8'))
+    new_image = Image.fromarray(np.array(json.loads(content['image_cropped']), dtype='uint8'))
     return new_image
 
 def main():
