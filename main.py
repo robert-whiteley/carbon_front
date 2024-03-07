@@ -1,7 +1,11 @@
 # client.py
 import requests
 import streamlit as st
+import numpy as np
+from PIL import Image
 import os
+import json
+
 
 #Server URL
 SERVER_BASE_URL = 'https://carbon-calculator-rw-klerphlnqq-ew.a.run.app'
@@ -15,11 +19,18 @@ def upload_image(file_path):
         response = requests.post(url, files=files)
         if response.status_code == 200:
             st.success("Image uploaded successfully")
-            response.content
+            content_json = json.loads(response.content.decode('utf-8'))
+            cropped_image = display_cropped_img(content_json)
+            st.image(cropped_image, width=250)
+            content_json['message']
         else:
             st.error("Failed to upload image")
     except Exception as e:
         st.error(f"Error: {str(e)}")
+
+def display_cropped_img(content):
+    new_image = Image.fromarray(np.array(json.loads(content['image_cropped']), dtype='uint8'))
+    return new_image
 
 def main():
     st.title("Image Uploader")
