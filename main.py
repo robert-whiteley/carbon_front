@@ -28,7 +28,7 @@ st.markdown(background_image, unsafe_allow_html=True)
 
 #Server URL
 #SERVER_BASE_URL = 'http://127.0.0.1:8000'
-SERVER_BASE_URL = 'https://carbon-calculator-rw-klerphlnqq-ew.a.run.app/'
+SERVER_BASE_URL = 'https://carbon-calculator-mk1-klerphlnqq-ew.a.run.app'
 
 col_upl, col_prog = st.columns(2)
 
