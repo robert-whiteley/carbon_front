@@ -7,31 +7,27 @@ import os
 import json
 import time
 
-original_title = '<h1 style="text-align: center; font-family: san-serif; color:white; font-size: 44px;">CARBON CALCULATOR</h1>'
-st.markdown(original_title, unsafe_allow_html=True)
-
-
-# Set the background image
-background_image = """
+# background
+bg = """
 <style>
 [data-testid="stAppViewContainer"] > .main {
-    background-image: url("https://th-thumbnailer.cdn-si-edu.com/bxv2go30Qu51_mZgT_sYjsb8vCY=/1000x750/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/06/9c/069cfb16-c46c-4742-85f0-3c7e45fa139d/mar2018_a05_talkingtrees.jpg");
+    background-image: url("https://images.unsplash.com/photo-1528200575999-1853e416cf07?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: 100vw 100vh;  # This sets the size to cover 100% of the viewport width and height
     background-position: center;
     background-repeat: no-repeat;
-
 }
 </style>
 """
-st.markdown(background_image, unsafe_allow_html=True)
+st.markdown(bg, unsafe_allow_html=True)
 
+# title
+original_title = '<h1 style="text-align: center; background:#b9c2bd; border-radius: 20px; font-family: Helvetica; color:#24744d; font-size: 44px;">CARBON CALCULATOR</h1>'
+st.markdown(original_title, unsafe_allow_html=True)
+st.divider()
 
 #Server URL
 #SERVER_BASE_URL = 'http://127.0.0.1:8000'
 SERVER_BASE_URL = 'https://carbon-calculator-mk1-klerphlnqq-ew.a.run.app'
-
-col_upl, col_prog = st.columns(2)
-
 
 def upload_image(file_path):
     #The post endpoint
@@ -43,9 +39,17 @@ def upload_image(file_path):
         if response.status_code == 200:
             return json.loads(response.content.decode('utf-8'))
         else:
-            st.error("No fruit detected")
+            # st.error("No fruit detected")
+            subhea = f"<p style='font-family: Arial; background:#b9c2bd; text-align: center; border-radius: 12px; font-family: Helvetica; color:#24744d; font-size: 25px;'>Upload error - Try again</p>"
+            st.markdown(subhea, unsafe_allow_html=True)
+            st.stop()
     except Exception as e:
-        st.error(f"Error: {str(e)}")
+        subhea = f"<p style='font-family: Arial; background:#b9c2bd; text-align: center; border-radius: 12px; font-family: Helvetica; color:#24744d; font-size: 25px;'>Upload error - Try again</p>"
+        st.markdown(subhea, unsafe_allow_html=True)
+        # st.error(f"Error: {str(e)}")
+        st.stop()
+
+
 
 def display_cropped_img(content):
     new_image = Image.fromarray(np.array(json.loads(content['image_cropped']), dtype='uint8'))
@@ -53,7 +57,7 @@ def display_cropped_img(content):
 
 def main():
     #Limiting only to jpg, jpeg and png files
-    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"], label_visibility='collapsed')
 
 
     if uploaded_file:
@@ -76,16 +80,32 @@ def main():
 
         key = list(content_json['message'].keys())[0]
         value = content_json['message'][key]
+
         fruit = key.capitalize()
-        description = 'Oranges coming from Spain blablabla'
+        #description = 'Oranges coming from Spain blablabla'
         col1, col2 = st.columns(2)
 
-        col1.subheader('Image Uploaded')
-        col1.image(uploaded_file)
+        with col1:
+            subhea = "<p style='font-family: Arial; background:#b9c2bd; text-align: center; border-radius: 12px; font-family: Helvetica; color:#24744d; font-size: 25px;'>Image Uploaded</p>"
+            st.markdown(subhea, unsafe_allow_html=True)
+            st.image(uploaded_file)
 
-        col2.subheader(f'Fruit Detected: {fruit}')
-        col2.subheader(f"CO2: {value} kg per 1kg of {fruit}s")
-        col2.image(cropped_image, width=120)
+        with col2:
+            txt_to_show = 'Fruit Detected: ' + fruit
+            subhea = f"<p style='font-family: Arial; background:#b9c2bd; text-align: center; border-radius: 12px; font-family: Helvetica; color:#24744d; font-size: 25px;'>{txt_to_show}</p>"
+            st.markdown(subhea, unsafe_allow_html=True)
+
+            st.image(cropped_image, width=200)
+
+            txt_to_show2 = f"CO2: {value} kg per 1kg of {fruit}"
+            subhea2 = f"<p style='font-family: Arial; background:#b9c2bd; text-align: center; border-radius: 12px; font-family: Helvetica; color:#24744d; font-size: 25px;'>{txt_to_show2}</p>"
+            st.markdown(subhea2, unsafe_allow_html=True)
+
+            # st.subheader(f"CO2: {value} kg per 1kg of {fruit}s")
+
+
+
+        st.divider()
 
 
 
