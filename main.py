@@ -6,10 +6,6 @@ from PIL import Image
 import os
 import json
 import time
-from streamlit_extras.app_logo import add_logo
-
-def logo():
-    add_logo("./logo.png", height=600)
 
 #general font
 st.markdown(
@@ -178,4 +174,4 @@ if __name__ == "__main__":
     # logo() ??
     main()
     more_info()
-    # team()
+    team()
