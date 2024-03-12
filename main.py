@@ -59,6 +59,7 @@ def main():
     #Limiting only to jpg, jpeg and png files
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"], label_visibility='collapsed')
 
+
     if uploaded_file:
         #Getting the file extension
         file_path = f"temp_image.{uploaded_file.type.split('/')[-1]}"
