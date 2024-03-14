@@ -188,7 +188,7 @@ def main():
             show_subheader(txt_to_show)
 
             st.image(cropped_image, width=200)
-            txt_to_show2 = f"Footprint: {value} Kg of CO2"#  {fruit}"
+            txt_to_show2 = f"Footprint: {value} Kg of CO2 per Kg {fruit}"
             show_subheader(txt_to_show2)
 
         # SHOW GRAPH
@@ -204,7 +204,7 @@ def main():
 
         fig = px.bar(df, x="Hours", y="Compare", orientation='h',title='Equivalent',text_auto=True)
         fig.update_traces(textfont_size=20, marker_color='rgb(185,194,189)', marker_line_color='rgb(8,48,107)',
-                  marker_line_width=1.5, opacity=0.6)
+                  marker_line_width=1.5, opacity=0.7)
         st.write(fig)
 
         # container = st.container(border=True)
