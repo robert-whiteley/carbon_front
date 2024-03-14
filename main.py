@@ -174,7 +174,7 @@ def main():
         fruit = key.capitalize()
 
         value = content_json['message'][key]
-        value = float(round(value, 1))*1000
+        value = float(round(value, 1))
 
         #description = 'Oranges coming from Spain blablabla'
         col1, col2 = st.columns(2)
@@ -188,20 +188,23 @@ def main():
             show_subheader(txt_to_show)
 
             st.image(cropped_image, width=200)
-            txt_to_show2 = f"CO2: {value} grams/kilo of {fruit}"
+            txt_to_show2 = f"Footprint: {value} Kg of CO2"#  {fruit}"
             show_subheader(txt_to_show2)
 
         # SHOW GRAPH
 
-        miles_driven = float(round(value/400, 1))
-        chatgpt = value/140
-        tv_watch = value/90
+        miles_driven = float(round(value/2.4, 1))
+        chatgpt = float(round(value/0.14, 1))
+        tv_watch = float(round(value/0.09, 2))
+        flight = float(round(value/90, 3))
 
-        nme = ["Miles", "ChatGPT", "TV"]
-        scr = [miles_driven, chatgpt, tv_watch]
-        df = pd.DataFrame({'name': nme, 'CO2': scr})
+        nme = ["Plane", "Car", "ChatGPT", "Netflix"]
+        scr = [flight, miles_driven, chatgpt, tv_watch]
+        df = pd.DataFrame({'Compare': nme, 'Hours': scr})
 
-        fig = px.bar(df, x="CO2", y="name", orientation='h',title='Comparison')
+        fig = px.bar(df, x="Hours", y="Compare", orientation='h',title='Equivalent',text_auto=True)
+        fig.update_traces(textfont_size=20, marker_color='rgb(185,194,189)', marker_line_color='rgb(8,48,107)',
+                  marker_line_width=1.5, opacity=0.6)
         st.write(fig)
 
         # container = st.container(border=True)
@@ -209,9 +212,9 @@ def main():
         # container.write(f'ChatGPT usage : {dec_to_t(chatgpt)}')
         # container.write(f'TV watch time : {dec_to_t(tv_watch)}')
 
-        show_carb_det(f'{miles_driven} miles by car')
-        show_carb_det(f'ChatGPT usage : {dec_to_t(chatgpt)}')
-        show_carb_det(f'TV watch time : {dec_to_t(tv_watch)}')
+        # show_carb_det(f'{miles_driven} miles by car')
+        # show_carb_det(f'ChatGPT usage : {dec_to_t(chatgpt)}')
+        # show_carb_det(f'TV watch time : {dec_to_t(tv_watch)}')
 
 
 
